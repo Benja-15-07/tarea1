@@ -1,0 +1,6 @@
+package Tarea1;
+
+class Moneda500 extends Moneda{
+    public Moneda500(){}
+    public int getValor(){return 500;}
+}
