@@ -9,6 +9,8 @@ abstract class Producto {
         this.serie = serieIn;
         this.precio = precioIn;
     }
+    public abstract String consumir();
+
     public int getSerie() {return this.serie;}
     public int getPrecio() {return this.precio;}
 }

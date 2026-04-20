@@ -34,7 +34,7 @@ class Expendedor{
         }
         monVu = new Deposito<Moneda>(0);
     }
-    public Producto comprarBebida(Moneda dinero, int type){
+    public Producto comprarProducto(Moneda dinero, int type){
         if(dinero != null) {
             Deposito<Producto> dep;
             if (type == COCA) {dep = coca;}
