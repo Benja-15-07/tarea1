@@ -7,12 +7,12 @@ public class Main {
         Comprador c1 = new Comprador(m1, 1, ex);
         System.out.println(c1.cuantoVuelto());
         System.out.println(c1.queBebiste());
-        m1 = new Moneda1500();
-        c1 = new Comprador(m1, 1, ex);
+        m1 = new Moneda1000();
+        c1 = new Comprador(m1, 2, ex);
         System.out.println(c1.cuantoVuelto());
         System.out.println(c1.queBebiste());
-        m1 = new Moneda1500();
-        c1 = new Comprador(m1, 1, ex);
+        m1 = new Moneda500();
+        c1 = new Comprador(m1, 3, ex);
         System.out.println(c1.cuantoVuelto());
         System.out.println(c1.queBebiste());
     }

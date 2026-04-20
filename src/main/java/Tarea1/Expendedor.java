@@ -3,27 +3,33 @@ package Tarea1;
 class Expendedor{
     public static final int  COCA=1;
     public static final int  SPRITE=2;
+    public static final int  FANTA=3;
 
-    private Deposito<Bebida> coca;
-    private Deposito<Bebida> sprite;
+    private Deposito<Producto> coca;
+    private Deposito<Producto> sprite;
+    private Deposito<Producto> fanta;
     private Deposito<Moneda> monVu;
     private int precio;
 
     public Expendedor(int size, int precioIn){
         this.precio = precioIn;
-        coca = new Deposito<Bebida>(this.precio);
-        sprite = new Deposito<Bebida>(this.precio);
+        coca = new Deposito<Producto>(this.precio);
+        sprite = new Deposito<Producto>(this.precio);
+        fanta = new Deposito<Producto>(this.precio);
         for(int i = 0;i < size;i++){
-            coca.addElemento(new CocaCola(i+100));
-            sprite.addElemento(new Sprite(i+200));
+            coca.addElemento(new CocaCola(i+100, this.precio));
+            sprite.addElemento(new Sprite(i+200, this.precio));
+            fanta.addElemento(new Fanta(i+300, this.precio));
         }
         monVu = new Deposito<Moneda>(0);
     }
     public Bebida comprarBebida(Moneda dinero, int type){
         if(dinero != null) {
-            Deposito<Bebida> dep = null;
-            if (type==COCA) dep = coca;
-            else if(type==SPRITE) dep = sprite;
+            Deposito<Producto> dep;
+            if (type == COCA) {dep = coca;}
+            else if (type == SPRITE) {dep = sprite;}
+            else if (type == FANTA) {dep = fanta;}
+            else {dep = null;}
 
             if (dep != null && dinero.getValor() >= dep.getPrecio()) {
                 Bebida auxOut = (Bebida) dep.getElemento();
