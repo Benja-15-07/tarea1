@@ -4,9 +4,9 @@ class Comprador {
     private String sonido;
     private int vuelto;
 
-    public Comprador(Moneda m, int cualBebida, Expendedor exp){
-        Bebida b = exp.comprarBebida(m, cualBebida);
-        if(b != null) this.sonido = b.beber();
+    public Comprador(Moneda m, int cualProducto, Expendedor exp){
+        Producto b = exp.comprarProducto(m, cualProducto);
+        if(b != null) this.sonido = b.consumir();
         Moneda efectivo = exp.getVuelto();
         while (efectivo != null && efectivo.getValor() == 100) {
             this.vuelto += efectivo.getValor();
