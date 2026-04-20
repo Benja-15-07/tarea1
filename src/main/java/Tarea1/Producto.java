@@ -2,7 +2,7 @@ package Tarea1;
 
 abstract class Producto {
     private int serie;
-    // NOTA : Todas las líneas asociadas a la variable "precio" deben ser eliminadas una vez se implemente el enum
+    // NOTA : Todas las líneas asociadas a la variable "precio" deben ser eliminadas o retrabajadas una vez se implemente el enum
     private int precio;
 
     public Producto(int serieIn, int precioIn) {
