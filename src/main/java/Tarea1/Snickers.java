@@ -1,8 +1,8 @@
 package Tarea1;
 
 class Snickers extends Dulce{
-    public Snickers(int serieIn, int precioIn) {
-        super(serieIn, precioIn);
+    public Snickers(int serieIn) {
+        super(serieIn);
     }
     public String consumir(){
         return "snickers";

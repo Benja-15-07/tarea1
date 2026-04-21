@@ -1,8 +1,8 @@
 package Tarea1;
 
 class Sprite extends Bebida{
-    public Sprite(int serieIn, int precioIn) {
-        super(serieIn, precioIn);
+    public Sprite(int serieIn) {
+        super(serieIn);
     }
     public String consumir(){
         return "sprite";

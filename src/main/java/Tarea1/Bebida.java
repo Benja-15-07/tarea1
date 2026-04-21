@@ -1,5 +1,5 @@
 package Tarea1;
 
 abstract class Bebida extends Producto{
-    public Bebida(int serieIn, int precioIn) {super(serieIn, precioIn);}
+    public Bebida(int serieIn) {super(serieIn);}
 }
