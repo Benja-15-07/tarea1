@@ -31,11 +31,11 @@ class Expendedor{
     public Producto comprarProducto(Moneda dinero, int type){
         if(dinero != null) {
             Deposito<Producto> dep;
-            if (type == 1) {dep = coca;}
-            else if (type == 2) {dep = sprite;}
-            else if (type == 3) {dep = fanta;}
-            else if (type == 4) {dep = snickers;}
-            else if (type == 5) {dep = super8;}
+            if (type == Precios.COCACOLA.getID()) {dep = coca;}
+            else if (type == Precios.SPRITE.getID()) {dep = sprite;}
+            else if (type == Precios.FANTA.getID()) {dep = fanta;}
+            else if (type == Precios.SNICKERS.getID()) {dep = snickers;}
+            else if (type == Precios.SUPER8.getID()) {dep = super8;}
             else {dep = null;}
 
             if (dep != null && dinero.getValor() >= dep.getPrecio()) {
