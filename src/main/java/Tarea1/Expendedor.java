@@ -12,11 +12,11 @@ class Expendedor{
     private int precio;
     public Expendedor(int size, int precioIn){
         this.precio = precioIn;
-        coca = new Deposito<Producto>(Precios.COCACOLA.getPrecio());
-        sprite = new Deposito<Producto>(Precios.SPRITE.getPrecio());
-        fanta = new Deposito<Producto>(Precios.FANTA.getPrecio());
-        snickers = new Deposito<Producto>(Precios.SNICKERS.getPrecio());
-        super8 = new Deposito<Producto>(Precios.SUPER8.getPrecio());
+        coca = new Deposito<Producto>();
+        sprite = new Deposito<Producto>();
+        fanta = new Deposito<Producto>();
+        snickers = new Deposito<Producto>();
+        super8 = new Deposito<Producto>();
 
         for(int i = 0;i < size;i++){
             coca.addElemento(new CocaCola(i+100));
@@ -25,23 +25,42 @@ class Expendedor{
             snickers.addElemento(new Snickers(i));
             super8.addElemento(new Super8(i+50));
         }
-        monVu = new Deposito<Moneda>(0);
+        monVu = new Deposito<Moneda>();
     }
 
     public Producto comprarProducto(Moneda dinero, int type){
         if(dinero != null) {
             Deposito<Producto> dep;
-            if (type == Precios.COCACOLA.getID()) {dep = coca;}
-            else if (type == Precios.SPRITE.getID()) {dep = sprite;}
-            else if (type == Precios.FANTA.getID()) {dep = fanta;}
-            else if (type == Precios.SNICKERS.getID()) {dep = snickers;}
-            else if (type == Precios.SUPER8.getID()) {dep = super8;}
-            else {dep = null;}
+            Precios productoActual;
+            if (type == Precios.COCACOLA.getID()) {
+                dep = coca;
+                productoActual = Precios.COCACOLA;
+            }
+            else if (type == Precios.SPRITE.getID()) {
+                dep = sprite;
+                productoActual = Precios.SPRITE;
+            }
+            else if (type == Precios.FANTA.getID()) {
+                dep = fanta;
+                productoActual = Precios.FANTA;
+            }
+            else if (type == Precios.SNICKERS.getID()) {
+                dep = snickers;
+                productoActual = Precios.SNICKERS;
+            }
+            else if (type == Precios.SUPER8.getID()) {
+                dep = super8;
+                productoActual = Precios.SUPER8;
+            }
+            else {
+                dep = null;
+                productoActual = null;
+            }
 
-            if (dep != null && dinero.getValor() >= dep.getPrecio()) {
+            if (dep != null && dinero.getValor() >= productoActual.getPrecio()) {
                 Producto auxOut = (Producto) dep.getElemento();
                 if(auxOut != null) {
-                    int cantidadVuelto = (dinero.getValor() - dep.getPrecio()) / 100;
+                    int cantidadVuelto = (dinero.getValor() - productoActual.getPrecio()) / 100;
                     for (int i = 0; i < cantidadVuelto; i++) {
                         monVu.addElemento(new Moneda100());
                     }

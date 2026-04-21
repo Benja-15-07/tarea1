@@ -3,11 +3,9 @@ import java.util.ArrayList;
 
 class Deposito<T> {
     private ArrayList<T> almacen;
-    // NOTA : Todas las líneas asociadas a la variable "precio" deben ser eliminadas una vez se implemente el enum
-    private int precio;
-    public Deposito(int precioIn){
+
+    public Deposito(){
         almacen = new ArrayList<T>();
-        this.precio = precioIn;
     }
     public void addElemento(T toAdd){
         almacen.add(toAdd);
@@ -16,5 +14,4 @@ class Deposito<T> {
         if (almacen.size() != 0) return almacen.remove(0);
         else return null;
     }
-    public int getPrecio(){return this.precio;}
 }
