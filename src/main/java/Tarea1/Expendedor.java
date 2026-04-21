@@ -1,12 +1,6 @@
 package Tarea1;
 
 class Expendedor{
-    public static final int  COCA=1;
-    public static final int  SPRITE=2;
-    public static final int  FANTA=3;
-    public static final int  SNICKERS=4;
-    public static final int  SUPER8=5;
-
     private Deposito<Producto> coca;
     private Deposito<Producto> sprite;
     private Deposito<Producto> fanta;
@@ -16,32 +10,32 @@ class Expendedor{
     private Deposito<Moneda> monVu;
 
     private int precio;
-
     public Expendedor(int size, int precioIn){
         this.precio = precioIn;
-        coca = new Deposito<Producto>(this.precio);
-        sprite = new Deposito<Producto>(this.precio);
-        fanta = new Deposito<Producto>(this.precio);
-        snickers = new Deposito<Producto>(this.precio);
-        super8 = new Deposito<Producto>(this.precio);
+        coca = new Deposito<Producto>(Precios.COCACOLA.getPrecio());
+        sprite = new Deposito<Producto>(Precios.SPRITE.getPrecio());
+        fanta = new Deposito<Producto>(Precios.FANTA.getPrecio());
+        snickers = new Deposito<Producto>(Precios.SNICKERS.getPrecio());
+        super8 = new Deposito<Producto>(Precios.SUPER8.getPrecio());
 
         for(int i = 0;i < size;i++){
-            coca.addElemento(new CocaCola(i+100, this.precio));
-            sprite.addElemento(new Sprite(i+200, this.precio));
-            fanta.addElemento(new Fanta(i+300, this.precio));
-            snickers.addElemento(new Snickers(i+0, this.precio));
-            super8.addElemento(new Super8(i+50, this.precio));
+            coca.addElemento(new CocaCola(i+100));
+            sprite.addElemento(new Sprite(i+200));
+            fanta.addElemento(new Fanta(i+300));
+            snickers.addElemento(new Snickers(i));
+            super8.addElemento(new Super8(i+50));
         }
         monVu = new Deposito<Moneda>(0);
     }
+
     public Producto comprarProducto(Moneda dinero, int type){
         if(dinero != null) {
             Deposito<Producto> dep;
-            if (type == COCA) {dep = coca;}
-            else if (type == SPRITE) {dep = sprite;}
-            else if (type == FANTA) {dep = fanta;}
-            else if (type == SNICKERS) {dep = snickers;}
-            else if (type == SUPER8) {dep = super8;}
+            if (type == 1) {dep = coca;}
+            else if (type == 2) {dep = sprite;}
+            else if (type == 3) {dep = fanta;}
+            else if (type == 4) {dep = snickers;}
+            else if (type == 5) {dep = super8;}
             else {dep = null;}
 
             if (dep != null && dinero.getValor() >= dep.getPrecio()) {
