@@ -1,5 +1,6 @@
 package Tarea1;
 
+/** Enumeración de todos los productos disponibles con sus respectivos precios e identificadoes numéricos. */
 public enum Precios {
     COCACOLA(800, 1),
     SPRITE(600, 2),
