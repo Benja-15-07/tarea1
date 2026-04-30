@@ -18,15 +18,29 @@ class Comprador {
      * @param cualProducto El número identificador del producto a comprar
      * @param exp La instancia del expendedor al que le va a comprar
     */
-    public Comprador(Moneda m, int cualProducto, Expendedor exp){
+    public Comprador(Moneda m, int cualProducto, Expendedor exp)
+            throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+        /**
+         * Al crearse, el comprador intenta comprar inmediatamente
+         * el producto indicado en el expendedor usando la moneda recibida.
+         * Si logra obtener un producto, guarda en sonido el texto
+         * que entrega el metodo consumir de ese producto.
+         */
         Producto b = exp.comprarProducto(m, cualProducto);
-        if(b != null) this.sonido = b.consumir();
+        if (b != null) {
+            this.sonido = b.consumir();
+        }
+
+        /**
+         * Despues de la compra, el comprador revisa el deposito de vuelto
+         * del expendedor y saca las monedas una por una hasta que no queden mas.
+         * Cada moneda retirada se suma al total almacenado en vuelto.
+         */
         Moneda efectivo = exp.getVuelto();
-        while (efectivo != null && efectivo.getValor() == 100) {
+        while (efectivo != null) {
             this.vuelto += efectivo.getValor();
             efectivo = exp.getVuelto();
         }
-        if(efectivo != null) this.vuelto += efectivo.getValor();
     }
     /** Getter de vuelto */
     public int cuantoVuelto(){
