@@ -48,84 +48,84 @@ class Expendedor{
      * @param type Identificador numérico del tipo de producto elegido por el usuario.
      * @return El producto elegido por el usuario si el dinero es suficiente
     */
-    public Producto comprarProducto(Moneda dinero, int type){
-        /** La mayoría de la lógica sólo se ejecuta si hay dinero en primer lugar.*/
-        if(dinero != null) {
-            /**
-             * Si hay dinero, se asigna el depósito dep del cual extraer
-             * y se asigna el elemento productoActual del enum al que corresponde el producto deseado
-            */
-            Deposito<Producto> dep;
-            Precios productoActual;
-
-            if (type == Precios.COCACOLA.getID()) {
-                dep = coca;
-                productoActual = Precios.COCACOLA;
-            }
-            else if (type == Precios.SPRITE.getID()) {
-                dep = sprite;
-                productoActual = Precios.SPRITE;
-            }
-            else if (type == Precios.FANTA.getID()) {
-                dep = fanta;
-                productoActual = Precios.FANTA;
-            }
-            else if (type == Precios.SNICKERS.getID()) {
-                dep = snickers;
-                productoActual = Precios.SNICKERS;
-            }
-            else if (type == Precios.SUPER8.getID()) {
-                dep = super8;
-                productoActual = Precios.SUPER8;
-            }
-            else {
-                dep = null;
-                productoActual = null;
-            }
-
-            /**
-             * Si el tipo de producto es válido y el depósito existe
-             * y el dinero del cliente es mayor o igual al precio del producto entonces:
-            */
-            if (dep != null && dinero.getValor() >= productoActual.getPrecio()) {
-                Producto auxOut = (Producto) dep.getElemento();
-                /**
-                 * Se revisa que queden productos en el depósito
-                 * Si quedan: se entrega el producto deseado y se rellena el vuelto con monedas de 100.
-                */
-                if(auxOut != null) {
-                    int cantidadVuelto = (dinero.getValor() - productoActual.getPrecio()) / 100;
-                    for (int i = 0; i < cantidadVuelto; i++) {
-                        monVu.addElemento(new Moneda100());
-                    }
-                    return auxOut;
-                }
-                /** Si no quedan: no se entrega ningún producto y el vuelto es la misma moneda inicial*/
-                else {
-                    monVu.addElemento(dinero);
-                    return null;
-                }
-            }
-            /**
-             * Si el depósito no existe o el dinero es menor al precio del producto deseado,
-             * no se entrega ningún producto y el vuelto es la misma moneda inicial
-            */
-            else {
-                monVu.addElemento(dinero);
-                return null;
-            }
+    public Producto comprarProducto(Moneda dinero, int type)
+            throws PagoIncorrectoException, PagoInsuficienteException, NoHayProductoException {
+        /**
+         * Primero se revisa el caso en que no haya moneda.
+         * Si el comprador intenta comprar con null, no se entrega producto y tampoco se deja vuelto en el deposito.
+         */
+        if (dinero == null) {
+            throw new PagoIncorrectoException("No se ingresó ninguna moneda");
         }
-        /** Si no hay dinero, no se compra ningún producto y no queda nada en el depósito del vuelto.*/
+
+        /**
+         * Si hay moneda, se determina cual es el deposito correcto
+         * también el producto del enum que corresponde al numero elegido.
+         * Si el numero no corresponde a ningun producto, se devuelve la
+         * misma moneda como vuelto y se lanza la excepcion.
+         */
+        Deposito<Producto> dep;
+        Precios productoActual;
+
+        if (type == Precios.COCACOLA.getID()) {
+            dep = coca;
+            productoActual = Precios.COCACOLA;
+        }
+        else if (type == Precios.SPRITE.getID()) {
+            dep = sprite;
+            productoActual = Precios.SPRITE;
+        }
+        else if (type == Precios.FANTA.getID()) {
+            dep = fanta;
+            productoActual = Precios.FANTA;
+        }
+        else if (type == Precios.SNICKERS.getID()) {
+            dep = snickers;
+            productoActual = Precios.SNICKERS;
+        }
+        else if (type == Precios.SUPER8.getID()) {
+            dep = super8;
+            productoActual = Precios.SUPER8;
+        }
         else {
-            monVu.addElemento(null);
-            return null;
+            monVu.addElemento(dinero);
+            throw new NoHayProductoException("No existe el producto indicado");
         }
+
+        /**
+         * Una vez identificado el producto, se revisa si la moneda alcanza.
+         * Si el valor de la moneda es menor al precio del producto,
+         * no se entrega nada y la misma moneda queda como vuelto.
+         */
+        if (dinero.getValor() < productoActual.getPrecio()) {
+            monVu.addElemento(dinero);
+            throw new PagoInsuficienteException("Pago insuficiente");
+        }
+
+        /**
+         * Si el pago es suficiente, se intenta sacar un producto desde el deposito.
+         * Si el deposito ya estaba vacio, tampoco se entrega producto
+         * y la misma moneda queda guardada en el deposito de vuelto.
+         */
+        Producto auxOut = dep.getElemento();
+
+        if (auxOut == null) {
+            monVu.addElemento(dinero);
+            throw new NoHayProductoException("No quedan productos de ese tipo");
+        }
+
+        /**
+         * Si todo sale bien, entonces se calcula la diferencia entre lo pagado
+         * y el precio del producto. Ese vuelto se deja en monedas de 100
+         * dentro del deposito de monedas de vuelto.
+         */
+        int cantidadVuelto = (dinero.getValor() - productoActual.getPrecio()) / 100;
+        for (int i = 0; i < cantidadVuelto; i++) {
+            monVu.addElemento(new Moneda100());
+        }
+
+        return auxOut;
     }
-    /**
-     * Retira y devuelve el primer elemento del depósito de vuelto.
-     *
-     * @return La primera moneda que llegó al depósito
-    */
     public Moneda getVuelto() {
         return monVu.getElemento();
     }
