@@ -12,10 +12,13 @@ public class main_interactivo {
         boolean quedarte = true;
 
         System.out.println("Ves una expendedora\n1)Comprar algo\n2)Irte");
+        System.out.print(">> "); // Agregado por estética más que nada,
+                                 // aparece siempre después de una pregunta o excepción.
 
         if(sc.nextInt()==1){
             while(quedarte){
                 System.out.println("¿Que moneda usaras?\n1) 100\n2) 500\n3) 1000\n4) 1500\n5)Probar sin usar monedas");
+                System.out.print(">> ");
                 switch (sc.nextInt()){
                     case 1:
                         moneda = new Moneda100();
@@ -39,6 +42,7 @@ public class main_interactivo {
 
                 System.out.println("En la expendedora hay:\n1)Coca Cola\n2)Sprite" +
                                          "\n3)Fanta\n4)Snickers\n5)Super8\n6)Irte");
+                System.out.print(">> ");
 
                 boolean seleccionando = true;
                 while (seleccionando) {
@@ -57,10 +61,13 @@ public class main_interactivo {
                             seleccionando = false;
                         } catch (NoHayProductoException e) {
                             System.out.println(e.getMessage());
+                            System.out.print(">> ");
                         } catch (PagoInsuficienteException e) {
                             System.out.println(e.getMessage());
+                            System.out.print(">> ");
                         } catch (PagoIncorrectoException e) {
                             System.out.println(e.getMessage());
+                            System.out.print(">> ");
                         }
                     }
                 }
@@ -70,18 +77,21 @@ public class main_interactivo {
 
                     if (comprador.queConsumiste() != null) {
                         System.out.println("Compraste algo\n¿Consumir?\n1)si\n2)no");
+                        System.out.print(">> ");
                         if (sc.nextInt() == 1) {
                             System.out.println(comprador.queConsumiste());
                         }
                     }
 
                     System.out.println("¿Tomar el vuelto?\n1)si\n2)no");
+                    System.out.print(">> ");
                     if (sc.nextInt() == 1) {
                         System.out.println("Sacaste: " + comprador.cuantoVuelto());
                     }
 
 
                     System.out.println("¿Volver a intentar?\n1)si\n2)no");
+                    System.out.print(">> ");
                     if (sc.nextInt() == 2) {
                         quedarte = false;
                     }
