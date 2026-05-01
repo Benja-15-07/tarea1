@@ -2,7 +2,17 @@ package Tarea1;
 
 import java.util.Scanner;
 
+/**
+ * Clase main interactivo que simula el uso de un expendedor.
+ * Permite al usuario seleccionar una moneda, elegir un producto,
+ * intentar comprarlo y decidir si consumirlo o si tomar el vuelto.
+ */
 public class MainInteractivo {
+
+    /**
+     *  Método principal que ejecuta el programa interactivo.
+     *  @param args argumentos de línea de comandos (no utilizados)
+     */
     public static void main(String[] args){
 
         Scanner sc = new Scanner(System.in);
