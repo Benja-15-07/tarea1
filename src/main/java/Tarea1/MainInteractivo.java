@@ -2,7 +2,7 @@ package Tarea1;
 
 import java.util.Scanner;
 
-public class main_interactivo {
+public class MainInteractivo {
     public static void main(String[] args){
 
         Scanner sc = new Scanner(System.in);
