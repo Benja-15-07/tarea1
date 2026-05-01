@@ -65,31 +65,32 @@ class Expendedor{
          * misma moneda como vuelto y se lanza la excepcion.
          */
         Deposito<Producto> dep;
-        Precios productoActual;
 
-        if (type == Precios.COCACOLA.getID()) {
-            dep = coca;
-            productoActual = Precios.COCACOLA;
-        }
-        else if (type == Precios.SPRITE.getID()) {
-            dep = sprite;
-            productoActual = Precios.SPRITE;
-        }
-        else if (type == Precios.FANTA.getID()) {
-            dep = fanta;
-            productoActual = Precios.FANTA;
-        }
-        else if (type == Precios.SNICKERS.getID()) {
-            dep = snickers;
-            productoActual = Precios.SNICKERS;
-        }
-        else if (type == Precios.SUPER8.getID()) {
-            dep = super8;
-            productoActual = Precios.SUPER8;
-        }
-        else {
+        Precios productoActual = Precios.producto(type);
+
+        if(productoActual == null){
             monVu.addElemento(dinero);
             throw new NoHayProductoException("No existe el producto indicado");
+        }
+
+        switch (productoActual){
+            case COCACOLA:
+                dep = coca;
+                break;
+            case SPRITE:
+                dep = sprite;
+                break;
+            case FANTA:
+                dep = fanta;
+                break;
+            case SNICKERS:
+                dep = snickers;
+                break;
+            case SUPER8:
+                dep = super8;
+                break;
+            default:
+                throw new NoHayProductoException("No existe el producto indicado");
         }
 
         /**
