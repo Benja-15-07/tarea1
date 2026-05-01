@@ -16,7 +16,15 @@ public enum Precios {
     public int getPrecio(){
         return precio;
     }
-    public int getID(){
+    public int getID() {
         return id;
+    }
+    public static Precios producto(int ID) {
+        for (Precios aux : Precios.values()) {
+            if(aux.getID() == ID){
+                return aux;
+            }
+        }
+        return null;
     }
 }
